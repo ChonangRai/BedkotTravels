@@ -1,0 +1,4 @@
+.searchbox input:focus{
+
+    box-shadow: none !important;
+}
