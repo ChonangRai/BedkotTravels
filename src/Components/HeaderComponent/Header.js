@@ -4,6 +4,14 @@ import * as Icons from 'react-icons/fa';
 
 
 export const Header = () => {
+    const logOutUser = (e) => {
+        e.preventDefault();
+        if (window.confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('user-token');
+            window.location.assign('/');
+        }
+    }
+
 
     if (!localStorage.getItem('user-token')) {
         var header =
@@ -15,7 +23,7 @@ export const Header = () => {
         header =
             <nav className="float-right d-flex mr-5">
                 <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/track-order">TRACK ORDER</NavLink>
-                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/log-out">LOGOUT</NavLink>
+                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" onClick={logOutUser} to="/">LOGOUT</NavLink>
             </nav>
     }
 
@@ -50,7 +58,7 @@ export const Header = () => {
                 </div>
             </div>
             <div className="col-sm-2 mt-4 py-3">
-                <a href="https://play.google.com/store/apps" target="_blank">
+                <a href="https://play.google.com/store/apps" target="_blank" rel="noreferrer" >
                     <img src="android_icon.jpg" className="float-right pr-5" alt="Android Icon" height="40px" />
                 </a>
             </div>
