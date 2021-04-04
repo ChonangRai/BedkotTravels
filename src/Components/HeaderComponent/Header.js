@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import * as Icons from 'react-icons/fa';
 
 
@@ -35,7 +35,9 @@ export const Header = () => {
             <div className="col-sm-3 py-3">
                 <div className="row">
                     <div className="col-sm-5 pl-5">
-                        <img src="logo.png" width="100px" alt="Logo" />
+                        <Link to="/">
+                            <img src="logo.png" width="100px" alt="Logo" />
+                        </Link>
                     </div>
                     <div className="col-sm-7">
                         <div>

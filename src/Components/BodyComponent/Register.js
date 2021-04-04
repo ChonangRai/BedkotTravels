@@ -88,17 +88,17 @@ const Register = () => {
                                 </div>
                                 <input name="address" value={user.address} onChange={handleChange} type="text" required className="form-control" placeholder="Address" />
                             </div>
-                            <div className="input-group mb-3">
+                            <div className={valid ? "input-group mb-3" : "input-group invalid mb-3"}>
                                 <div className="input-group-prepend">
                                     <span className="input-group-text"><Icons.FaUserSecret /></span>
                                 </div>
                                 <input name="password" value={user.password} onChange={handleChange} type="password" required className="form-control" placeholder="Password" />
                             </div>
-                            <div className="input-group mb-3">
+                            <div className={valid ? "input-group mb-3" : "input-group invalid mb-3"}>
                                 <div className="input-group-prepend">
                                     <span className="input-group-text"><Icons.FaUserSecret /></span>
                                 </div>
-                                <input name="cpassword" value={user.cpassword} onChange={handleChange} type="password" required className={valid ? 'form-control' : 'form-control-danger'} placeholder="Confirm Password" />
+                                <input name="cpassword" value={user.cpassword} onChange={handleChange} type="password" required className="form-control" placeholder="Confirm Password" />
                             </div>
                             <button onClick={handleRegister} className="btn btn-primary form-control mb-3">Register</button>
                         </form>

@@ -1,49 +1,91 @@
-import React from 'react'
+import React, { useState } from 'react';
+import * as Icons from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { Alert } from 'react-bootstrap';
+import axios from 'axios';
+
 
 export const Login = () => {
+
+    const [show, setShow] = useState(false);
+    const [message, setMessage] = useState();
+    const [varient, setVarient] = useState();
+
+
+    const [user, setUser] = useState({ email: '', password: '' });
+
+    const handleChange = (e) => {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const submitLogin = (e) => {
+        e.preventDefault();
+        axios.post('http://localhost:90/registration/login', user).then((response) => {
+            localStorage.setItem('user-token', response.data.token);
+            setShow(true);
+            setVarient('success');
+            setMessage('Logging in.');
+            window.location.assign('/');
+        }).catch((err) => {
+            setShow(true);
+            setVarient('danger');
+            setMessage('Wrong login credentials. Please try again.');
+            console.log(err);
+        })
+    }
+
     return (
-        <div className="d-flex justify-content-center" style={{marginTop:'150px'}}>
-            <div className="user_card">
-                <div className="d-flex justify-content-center">
-                    <div className="brand_logo_container">
-                        <img src="login_logo.png" className="brand_logo" alt="Logo" />
+        <div className="conteiner">
+            <Alert show={show} className="mt-3" variant={varient} onClose={() => setShow(false)} dismissible>{message}</Alert>
+            <div className="d-flex justify-content-center" style={{ marginTop: '75px' }}>
+                <div className="user_card">
+                    <div className="d-flex justify-content-center">
+                        <div className="brand_logo_container">
+                            <img src="login_logo.png" className="brand_logo" alt="Logo" />
+                        </div>
                     </div>
-                </div>
-                <div className="d-flex justify-content-center form_container">
-                    <form>
-                        <div className="input-group mb-3">
-                            <div className="input-group-append">
-                                <span className="input-group-text"><i className="fas fa-user" /></span>
+                    <div className="d-flex justify-content-center form_container">
+                        <form>
+                            <div className="input-group mb-3">
+                                <div className="input-group-append">
+                                    <span className="input-group-text">
+                                        <Icons.FaEnvelope />
+                                    </span>
+                                </div>
+                                <input type="text" name="email" value={user.email} onChange={handleChange} className="form-control input_user" placeholder="example@example.com" />
                             </div>
-                            <input type="text" name className="form-control input_user" defaultValue placeholder="username" />
-                        </div>
-                        <div className="input-group mb-2">
-                            <div className="input-group-append">
-                                <span className="input-group-text"><i className="fas fa-key" /></span>
+                            <div className="input-group mb-2">
+                                <div className="input-group-append">
+                                    <span className="input-group-text">
+                                        <Icons.FaUserSecret />
+                                    </span>
+                                </div>
+                                <input type="password" name="password" value={user.password} onChange={handleChange} className="form-control input_pass" defaultValue placeholder="password" />
                             </div>
-                            <input type="password" name className="form-control input_pass" defaultValue placeholder="password" />
-                        </div>
-                        <div className="form-group">
-                            <div className="custom-control custom-checkbox">
-                                <input type="checkbox" className="custom-control-input" id="customControlInline" />
+                            <div className="form-group">
+                                <div className="custom-control custom-checkbox">
+                                    <input type="checkbox" className="custom-control-input" id="customControlInline" />
+                                </div>
                             </div>
-                        </div>
-                        <div className="d-flex justify-content-center mt-3 login_container">
-                            <button type="button" name="button" className="btn login_btn">Login</button>
-                        </div>
-                    </form>
-                </div>
-                <div className="mt-4">
-                    <div className="d-flex justify-content-center links">
-                        Don't have an account? <a href="#" className="ml-2">Sign Up</a>
+                            <div className="d-flex justify-content-center mt-3 login_container">
+                                <button type="button" onClick={submitLogin} name="button" className="btn login_btn">Login</button>
+                            </div>
+                        </form>
                     </div>
-                    <div className="d-flex justify-content-center links">
-                        <a href="#">Forgot your password?</a>
+                    <div className="mt-4">
+                        <div className="d-flex justify-content-center links text-white">
+                            Don't have an account? <Link style={{ color: 'white', textDecoration: 'none' }} to="register" className="ml-2">Sign Up</Link>
+                        </div>
+                        <div className="d-flex justify-content-center links ">
+                            <Link to="/password-reset" style={{ color: 'white', textDecoration: 'none' }}>Forgot your password?</Link>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     )
 }
 export default Login;

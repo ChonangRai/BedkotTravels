@@ -7,17 +7,17 @@ export const Home = () => {
     const [destinations, setDestinations] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:90/destinatin/all').then((response) => {
+        axios.get('http://localhost:90/destination/all').then((response) => {
             setDestinations(response.data.data);
         }).catch((e) => {
             console.log(e.response);
         })
-    })
+    }, []);
 
     const places = destinations.map(destination => (
         <div key={destination._id} className="col-sm-3 m-2">
             <Card>
-                <Card.Img style={{ height: '250px' }} src={`http://localhost:90/student/photo/${destination._id}`} alt={destination.dtitle} />
+                <Card.Img style={{ height: '250px' }} src={`http://localhost:90/destination/photo/${destination._id}`} alt={destination.dtitle} />
                 <Card.Header>
                     <p className="px-2">{destination.dtitle}</p>
                     <p className="px-4">{destination.dcost}</p>
@@ -26,8 +26,10 @@ export const Home = () => {
         </div>
     ))
     return (
-        <div>
-            {places}
+        <div className="container">
+            <div className="row">
+                {places}
+            </div>
         </div>
     )
 }
