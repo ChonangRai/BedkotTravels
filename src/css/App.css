@@ -2,3 +2,7 @@
 
     box-shadow: none !important;
 }
+.registerbg{
+    background-image: url("visit_nepal.jpg");
+    background-size: cover;
+}
