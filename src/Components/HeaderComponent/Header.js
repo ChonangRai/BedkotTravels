@@ -8,22 +8,31 @@ export const Header = () => {
         e.preventDefault();
         if (window.confirm('Are you sure you want to logout?')) {
             localStorage.removeItem('user-token');
+            localStorage.removeItem('admin-token');
             window.location.assign('/');
         }
     }
 
 
-    if (!localStorage.getItem('user-token')) {
+    if (localStorage.getItem('user-token')) {
         var header =
             <nav className="float-right d-flex mr-5">
-                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/login">LOGIN</NavLink>
-                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/register">REGISTER</NavLink>
+                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/track-order">TRACK ORDER</NavLink>
+                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" onClick={logOutUser} to="/">LOGOUT</NavLink>
+            </nav>
+
+    } else if (localStorage.getItem('admin-token')) {
+        header =
+            <nav className="float-right d-flex mr-5">
+                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/view-bookings">VIEW BOOKINGS</NavLink>
+                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/add-destination">ADD DESTINATION</NavLink>
+                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" onClick={logOutUser} to="/">LOGOUT</NavLink>
             </nav>
     } else {
         header =
             <nav className="float-right d-flex mr-5">
-                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/track-order">TRACK ORDER</NavLink>
-                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" onClick={logOutUser} to="/">LOGOUT</NavLink>
+                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/login">LOGIN</NavLink>
+                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/register">REGISTER</NavLink>
             </nav>
     }
 
@@ -36,7 +45,7 @@ export const Header = () => {
                 <div className="row">
                     <div className="col-sm-5 pl-5">
                         <Link to="/">
-                            <img src="logo.png" width="100px" alt="Logo" />
+                            <img src="/logo.png" width="100px" alt="Logo" />
                         </Link>
                     </div>
                     <div className="col-sm-7">
@@ -61,7 +70,7 @@ export const Header = () => {
             </div>
             <div className="col-sm-2 mt-4 py-3">
                 <a href="https://play.google.com/store/apps" target="_blank" rel="noreferrer" >
-                    <img src="android_icon.jpg" className="float-right pr-5" alt="Android Icon" height="40px" />
+                    <img src="/android_icon.jpg" className="float-right pr-5" alt="Android Icon" height="40px" />
                 </a>
             </div>
         </div>

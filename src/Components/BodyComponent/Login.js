@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import * as Icons from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -23,8 +22,8 @@ export const Login = () => {
 
     const submitLogin = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:90/registration/login', user).then((response) => {
-            localStorage.setItem('user-token', response.data.token);
+        axios.post('http://localhost:90/admin/login', user).then((response) => {
+            localStorage.setItem('admin-token', response.data.token);
             setShow(true);
             setVarient('success');
             setMessage('Logging in.');
@@ -44,7 +43,7 @@ export const Login = () => {
                 <div className="user_card">
                     <div className="d-flex justify-content-center">
                         <div className="brand_logo_container">
-                            <img src="login_logo.png" className="brand_logo" alt="Logo" />
+                            <img src="/login_logo.png" className="brand_logo" alt="Logo" />
                         </div>
                     </div>
                     <div className="d-flex justify-content-center form_container">
@@ -74,14 +73,6 @@ export const Login = () => {
                                 <button type="button" onClick={submitLogin} name="button" className="btn login_btn">Login</button>
                             </div>
                         </form>
-                    </div>
-                    <div className="mt-4">
-                        <div className="d-flex justify-content-center links text-white">
-                            Don't have an account? <Link style={{ color: 'white', textDecoration: 'none' }} to="register" className="ml-2">Sign Up</Link>
-                        </div>
-                        <div className="d-flex justify-content-center links ">
-                            <Link to="/password-reset" style={{ color: 'white', textDecoration: 'none' }}>Forgot your password?</Link>
-                        </div>
                     </div>
                 </div>
             </div>
