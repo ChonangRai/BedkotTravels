@@ -12,6 +12,7 @@ const Register = () => {
 
     const [user, setUser] = useState({
         fname: '',
+        lname:'',
         address: '',
         email: '',
         mobile: '',
@@ -61,7 +62,13 @@ const Register = () => {
                                 <div className="input-group-prepend">
                                     <span className="input-group-text"><Icons.FaUser /></span>
                                 </div>
-                                <input name="fname" value={user.fname} onChange={handleChange} required type="text" className="form-control" placeholder="Full Name" />
+                                <input name="fname" value={user.fname} onChange={handleChange} required type="text" className="form-control" placeholder="First Name" />
+                            </div>
+                            <div className="input-group mb-3">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text"><Icons.FaUser /></span>
+                                </div>
+                                <input name="lname" value={user.lname} onChange={handleChange} required type="text" className="form-control" placeholder="Last Name" />
                             </div>
                             <div className="input-group mb-3">
                                 <div className="input-group-prepend">
