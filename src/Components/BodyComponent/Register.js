@@ -7,14 +7,16 @@ const Register = () => {
 
     const [show, setShow] = useState(false);
     const [message, setMessage] = useState();
-    const [varient, setVarient] = useState();
+    const [varient, setVarient] = useState('success');
+    const [valid, setValid] = useState(true);
 
     const [user, setUser] = useState({
         fname: '',
         address: '',
         email: '',
         mobile: '',
-        password: ''
+        password: '',
+        cpassword: ''
     });
 
     const handleChange = (e) => {
@@ -26,17 +28,26 @@ const Register = () => {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:90/registration/insert', user).then((response) => {
-            localStorage.setItem('user-token');
-            setShow(true);
-            setVarient('success');
-            setMessage('Registration successful.');
-        }).catch((error) => {
+        if(user.password===user.cpassword){
+            setValid(true);
+            axios.post('http://localhost:90/registration/insert', user).then((response) => {
+                localStorage.setItem('user-token', user.token);
+                setShow(true);
+                setVarient('success');
+                setMessage('Registration successful.');
+                window.location.assign('/');
+            }).catch((error) => {
+                setShow(true);
+                setVarient('danger');
+                setMessage('Registration failed. Please contact admin.');
+                console.log(error)
+            });
+        }else{
+            setValid(false);
             setShow(true);
             setVarient('danger');
-            setMessage('Registration failed. Please contact admin.');
-            console.log(error.response)
-        })
+            setMessage('Passwords donot match. Please try again.');
+        }
     }
     return (
         <div className="container">
@@ -80,7 +91,7 @@ const Register = () => {
                                 <div className="input-group-prepend">
                                     <span className="input-group-text"><Icons.FaUserSecret /></span>
                                 </div>
-                                <input type="password" required className="form-control" placeholder="Confirm Password" />
+                                <input name="cpassword" value={user.cpassword} onChange={handleChange} type="password" required className={valid ? 'form-control' : 'form-control-danger'} placeholder="Confirm Password" />
                             </div>
                             <button onClick={handleRegister} className="btn btn-primary form-control mb-3">Register</button>
                         </form>
