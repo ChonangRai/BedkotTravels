@@ -38,6 +38,16 @@ export const Destination = () => {
                     </div>
                     <div className="col-md-8">
                         <h1>{destination.dtitle}</h1>
+                        Package:
+                        <input type='radio' checked={booking.package==="Individual"} onChange={handleBooking}
+                        name="package" value="Individual" id="one" />
+                        <label htmlFor="one">Individual</label>
+                        <input type='radio' checked={booking.package==="Couple"} onChange={handleBooking}
+                        name="package" value="Couple" id="two" />
+                        <label htmlFor="two">Couple</label>
+                        <input type='radio' checked={booking.package==="Family"} onChange={handleBooking}
+                        name="package" value="Family" id="fam" />
+                        <label htmlFor="fam">Family</label>
                         <h5>Price: Rs. {destination.dcost}</h5>
                         {displayAccordingToUser}
                         <p>{destination.ddescription}</p>
