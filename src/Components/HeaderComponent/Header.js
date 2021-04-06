@@ -17,7 +17,8 @@ export const Header = () => {
     if (localStorage.getItem('user-token')) {
         var header =
             <nav className="float-right d-flex mr-5">
-                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/track-order">TRACK ORDER</NavLink>
+                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/track-booking">TRACK BOOKING</NavLink>
+                <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" to="/my-bookings">MY BOOKING</NavLink>
                 <NavLink style={{ textDecoration: 'none', color: 'rgba(0,0,0,0.7)', marginRight: '20px' }} activeClassName="active" onClick={logOutUser} to="/">LOGOUT</NavLink>
             </nav>
 

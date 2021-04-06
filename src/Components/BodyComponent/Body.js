@@ -5,6 +5,9 @@ import Register from './Register';
 import Login from './Login';
 import UserLogin from './UserLogin';
 import Destination from './Destination';
+import AddDestination from './AddDestination';
+import EditDestination from './EditDestination';
+import { MyBookings } from './MyBookings';
 
 export const Body = () => {
     return (
@@ -14,6 +17,9 @@ export const Body = () => {
             <Route path='/admin-login' component={Login} />
             <Route path='/login' component={UserLogin} />
             <Route path='/destination/get-destination/:id' component={Destination} />
+            <Route path='/add-destination' component={AddDestination} />
+            <Route path='/destination/edit-destination/:id' component={EditDestination} />
+            <Route path='/my-bookings' component={MyBookings} />
         </Switch>
     )
 }
