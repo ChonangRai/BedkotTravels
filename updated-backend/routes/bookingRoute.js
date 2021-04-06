@@ -8,11 +8,13 @@ router.post('/booking/add', auth.verifyCustomer, function (req, res) {
 
     const customerId = req.body.customerId;
     const destinationId = req.body.destinationId;
-    const cost = req.body.cost;
+    const adult = req.body.adult;
+    const children = req.body.children;
     const package = req.body.package;
-    const bookDate = req.body.bookDate
+    const bookDate = req.body.bookDate;
+    const cost = req.body.cost;
 
-    bdata = new Booking({ customerId: customerId, destinationId: destinationId, cost: cost, package: package, bookDate: bookDate })
+    bdata = new Booking({ customerId: customerId, destinationId: destinationId, adult: adult, children:children, package: package, bookDate: bookDate, cost:cost })
 
     bdata.save().then(function (result) {
         res.status(201).json({ success: true, data: result })
@@ -23,16 +25,11 @@ router.post('/booking/add', auth.verifyCustomer, function (req, res) {
 
 //Customer updates booking
 
-router.put('/booking/update/:id', auth.verifyCustomer, function (req, res) {
+router.put('/booking/cancel/:id', auth.verifyToken, function (req, res) {
 
     const id = req.params.id;
-    const customerId = req.body.customerId;
-    const destinationId = req.body.destinationId;
-    const cost = req.body.cost;
-    const package = req.body.package;
-    const bookDate = req.body.bookDate
 
-    Booking.updateOne({ _id: id }, { customerId: customerId, destinationId: destinationId, cost: cost, package: package, bookDate: bookDate })
+    Booking.updateOne({ _id: id }, { status : 'cancelled' })
 
         .then(function (result) {
             res.status(200).json({ success: true })

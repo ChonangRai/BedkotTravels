@@ -11,7 +11,10 @@ const Booking = mongoose.model("Booking",{
     package : {
         type: String
     },
-    cost :{
+    adult:{
+        type: String
+    },
+    children :{
         type: String
     },
     bookDate:{
@@ -21,9 +24,12 @@ const Booking = mongoose.model("Booking",{
         type: Date,
         default:Date.now
     },
-    bookStatus:{
-        type: Boolean,
-        default: false
+    status:{
+        type: String,
+        default: 'active'
+    },
+    cost:{
+        type: String
     }
 }) 
 
