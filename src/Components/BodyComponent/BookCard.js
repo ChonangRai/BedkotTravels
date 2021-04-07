@@ -6,6 +6,8 @@ import { Alert } from 'react-bootstrap';
 export const BookCard = (props) => {
     var booking = props.booking;
 
+    var bookedDate = new Date(booking.bookDate);
+
     const [show, setShow] = useState(false);
     const [message, setMessage] = useState();
     const [varient, setVarient] = useState();
@@ -19,6 +21,7 @@ export const BookCard = (props) => {
             setShow(true);
             setMessage('Successfully canceled');
             setVarient('success');
+            window.location.reload(); //reload window to change the status
         }).catch((error) => {
             setShow(true);
             setMessage('Cancel failed');
@@ -59,7 +62,10 @@ export const BookCard = (props) => {
                     <h5>{place.dtitle}</h5>
                 </div>
                 <div className="card-body">
-                    <b>Package: </b> {booking.package} <span className={booking.status === "cancelled" ? "badge badge-secondary float-right" : 'd-none'}>CANCELLED</span> <br />
+                    <b>Package: </b>
+                    {booking.package}
+                    <span className={booking.status === "cancelled" ? "badge badge-secondary float-right" : 'd-none'}>CANCELLED</span>
+                    <span className={(bookedDate <= Date.now() && booking.status !== "cancelled") ? "badge badge-secondary float-right" : 'd-none'}>EXPIRED</span> <br />
                     <b>Travelling date: </b>{booking.bookDate} <br />
                     <div className={booking.package === "Family" ? '' : 'd-none'}>
                         <b >No. of Adults: </b> {booking.adult} <br />
@@ -68,7 +74,7 @@ export const BookCard = (props) => {
                     <b>Total cost: </b> {booking.cost}  <br />
                 </div>
                 <div className="card-footer">
-                    <button disabled={booking.status === "cancelled" ? true : false}
+                    <button disabled={(booking.status === "cancelled" || bookedDate <= Date.now()) ? true : false}
                         onClick={() => handleCancel(booking._id)}
                         className="btn btn-outline-secondary mr-2">CANCEL</button>
                     <button onClick={() => handleDelete(booking._id)} className="btn btn-outline-danger">DELETE</button>
