@@ -8,6 +8,8 @@ import Destination from './Destination';
 import AddDestination from './AddDestination';
 import EditDestination from './EditDestination';
 import { MyBookings } from './MyBookings';
+import Search from './Search';
+import PasswordReset from './PasswordReset';
 
 export const Body = () => {
     return (
@@ -20,6 +22,8 @@ export const Body = () => {
             <Route path='/add-destination' component={AddDestination} />
             <Route path='/destination/edit-destination/:id' component={EditDestination} />
             <Route path='/my-bookings' component={MyBookings} />
+            <Route path='/search' component={Search} />
+            <Route path='/reset-password' component={PasswordReset} />
         </Switch>
     )
 }
